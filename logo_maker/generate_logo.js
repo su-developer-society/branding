@@ -5,24 +5,30 @@ const fs = require('fs');
 // --- CONFIGURATION ---
 const config = {
     // Text content for the logo
-    topEmojis: '👩‍💻⌨️🤖🖱️👨‍💻‍',
-    mainText: '',
-    subText: 'Stellenbosch\nUniversity\nDeveloper\nSociety',
-    bottomEmojis: '👩‍💻⌨️🤖🖱️👨‍💻‍',
+    // topEmojis: '👩‍💻⌨️🤖🖱️👨‍💻‍',
+    // mainText: '',
+    // subText: 'Stellenbosch\nUniversity\nDeveloper\nSociety',
+    // bottomEmojis: '👩‍💻⌨️🤖🖱️👨‍💻‍',
     // topEmojis: '🎯💡💻🚀🏆',
     // mainText: 'SUDS',
     // subText: 'Hackathons',
     // bottomEmojis: '🎯💡💻🚀🏆‍',
+    topEmojis: '🌐💾💻🏛️🎓',
+    mainText: 'SUDS',
+    subText: 'Internships\nand Jobs',
+    bottomEmojis: '🌐💾💻🏛️🎓‍',
 
     // Image dimensions (WhatsApp profile picture is often square)
     width: 512,
     height: 512,
 
     // Output file name
-    outputFile: 'suds-logo.png'
+    // outputFile: 'suds-logo.png'
     // outputFile: 'suds-round-logo.png'
     // outputFile: 'suds-hackathon-logo.png'
     // outputFile: 'suds-hackathon-round-logo.png'
+    // outputFile: 'suds-jobs-logo.png'
+    outputFile: 'suds-jobs-round-logo.png'
 };
 
 /**
@@ -62,7 +68,7 @@ function getHtmlTemplate(data) {
       width: 99%;
       height: 99%;
       background-color: #ffffff;
-      border-radius: 0%; /* Makes the logo circular */
+      border-radius: 50%; /* Makes the logo circular */
       display: flex;
       justify-content: center;
       align-items: center;
