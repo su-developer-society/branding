@@ -1,34 +1,34 @@
 // generate-logo.js
+/**Tool used by the developer society to create its logo.
+ * 
+ * This program consists of three components:
+ *  1. const config is used to configure the logo generator. The text inside,
+ *     the size, and the filename of the image is set.
+ *  2. funciton getHtmlTemplate provides the HTML which will be used to
+ *     structure and style the image.
+ *  3. function generateLogo generates the image.
+ */
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const path = require('path');
 
 // --- CONFIGURATION ---
 const config = {
+    // Common Emojis: 👩‍💻⌨️🤖🖱️👨‍💻‍🎯💡💻🚀🏆🌐💾💻🏛️🎓
+
     // Text content for the logo
-    // topEmojis: '👩‍💻⌨️🤖🖱️👨‍💻‍',
-    // mainText: '',
-    // subText: 'Stellenbosch\nUniversity\nDeveloper\nSociety',
-    // bottomEmojis: '👩‍💻⌨️🤖🖱️👨‍💻‍',
-    // topEmojis: '🎯💡💻🚀🏆',
-    // mainText: 'SUDS',
-    // subText: 'Hackathons',
-    // bottomEmojis: '🎯💡💻🚀🏆‍',
-    topEmojis: '🌐💾💻🏛️🎓',
-    mainText: 'SUDS',
-    subText: 'Internships\nand Jobs',
-    bottomEmojis: '🌐💾💻🏛️🎓‍',
+    topEmojis: '👩‍💻⌨️🤖🖱️👨‍💻',
+    mainText: '',
+    subText: 'Stellenbosch\nUniversity\nDeveloper\nSociety',
+    bottomEmojis: '👩‍💻⌨️🤖🖱️👨‍💻',
 
     // Image dimensions (WhatsApp profile picture is often square)
     width: 512,
     height: 512,
 
     // Output file name
-    // outputFile: 'suds-logo.png'
-    // outputFile: 'suds-round-logo.png'
-    // outputFile: 'suds-hackathon-logo.png'
-    // outputFile: 'suds-hackathon-round-logo.png'
-    // outputFile: 'suds-jobs-logo.png'
-    outputFile: 'suds-jobs-round-logo.png'
+    // outputFile: 'out/suds-logo.png'
+    outputFile: 'out/suds-round-logo.png'
 };
 
 /**
@@ -125,6 +125,13 @@ async function generateLogo() {
     let browser = null;
 
     try {
+        // Ensure the output directory exists before saving the file
+        const outputDir = path.dirname(config.outputFile);
+        if (!fs.existsSync(outputDir)) {
+            fs.mkdirSync(outputDir, { recursive: true });
+            console.log(`📂 Created output directory: ${outputDir}`);
+        }
+
         // Launch a headless browser
         browser = await puppeteer.launch();
         const page = await browser.newPage();
@@ -138,8 +145,6 @@ async function generateLogo() {
         // 2. Generate the HTML and set it as the page content
         const htmlContent = getHtmlTemplate(config);
         await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
-
-        // An alternative, more reliable way to wait for fonts to load
         await page.evaluateHandle('document.fonts.ready');
 
         // 3. Take a screenshot of the page
